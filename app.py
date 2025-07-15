@@ -51,19 +51,25 @@ def ask():
     elif intent == "get_student_name":
         number_entity = entities.get("student_number:student_number", [{}])[0].get("value")
         if number_entity:
-            student_number = str(number_entity)
-            name = number_to_name.get(student_number, "이런 학번을 가진 학생은 없어!")
-            answer = f"{student_number}번 학생은 {name}야!"
+            full_number = f"310{int(number_entity):02d}"
+            student_name = number_to_name.get(full_number)
+            if student_name:
+                answer = f"{number_entity}번 학생은 {student_name}이야!"
+            else:
+                answer = f"{number_entity}번? 그 번호를 가진 학생은 없는 것 같아!"
         else:
             answer = "몇 번인지 잘 못 들었어!"
 
     elif intent == "get_student_number":
         name_entity = entities.get("student_name:student_name", [{}])[0].get("value")
         if name_entity:
-            student_number = name_to_number.get(name_entity, "그 이름은 없는 것 같아!")
-            answer = f"{name_entity}의 학번은 {student_number}이야!"
+            student_number = name_to_number.get(name_entity)
+            if student_number:
+                answer = f"{name_entity}의 학번은 {student_number}이야!"
+            else:
+                answer = f"{name_entity}? 그 이름은 잘 모르겠어ㅠㅠ"
         else:
-            answer = "누굴 물어보는 건 지 잘 못 들었어!"
+            answer = "누구의 학번인지 잘 못 들었어!"
 
     else:
         answer = "음... 질문을 잘 이해하지 못했어"
