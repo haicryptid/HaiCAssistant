@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>3학년 10반 AI 비서</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="wrapper">
+    <h1>🎙️ 3학년 10반 AI 비서</h1>
+
+    <div id="result" class="chat-bubble">무엇이든 물어보세요!</div>
+
+    <button id="mic-button">
+      <img id="mic-img" src="{{ url_for('static', filename='assets/offMic.png') }}" alt="Mic" width="120">
+    </button>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

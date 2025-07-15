@@ -1,0 +1,46 @@
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Orbit', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+#mic-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+#mic-img {
+  transition: transform 0.2s ease;
+}
+#mic-img:active {
+  transform: scale(1.1);
+}
+
+.chat-bubble {
+  background-color: #1e1e1e;
+  border-radius: 15px;
+  padding: 20px 30px;
+  display: inline-block;
+  max-width: 80%;
+  font-size: 1.2rem;
+  line-height: 1.5;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
