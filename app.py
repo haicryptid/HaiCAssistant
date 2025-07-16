@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import requests
 import json
+import re
 
 app = Flask(__name__)
 
@@ -17,6 +18,21 @@ def load_students():
     return number_to_name, name_to_number
 
 number_to_name, name_to_number = load_students()
+
+# 시간표 데이터 불러오기(여기도 새로 추가된 부분임!)
+def load_timetable():
+    with open("static/data/timeTable.json", encoding="utf-8") as f:
+        data = json.load(f)
+    week_data = data["week"]
+    time_table = {}
+    for day_object in week_data:
+        for weekday_key, periods in day_object.items():
+            time_table[weekday_key] = periods[0]
+    return time_table
+
+time_table = load_timetable()
+
+
 
 # Wit.ai intent 분석
 def get_wit_response(text):
@@ -60,16 +76,44 @@ def ask():
         else:
             answer = "몇 번인지 잘 못 들었어!"
 
+    # 학번 제대로 읽게 함
     elif intent == "get_student_number":
         name_entity = entities.get("student_name:student_name", [{}])[0].get("value")
         if name_entity:
             student_number = name_to_number.get(name_entity)
             if student_number:
-                answer = f"{name_entity}의 학번은 {student_number}이야!"
+                student_number_space = ' '.join(student_number)
+                answer = f"{name_entity}의 학번은 {student_number_space}야!"
             else:
                 answer = f"{name_entity}? 그 이름은 잘 모르겠어ㅠㅠ"
         else:
             answer = "누구의 학번인지 잘 못 들었어!"
+
+    # 이 부분 추가함(여기부터 시간표 응답 로직)
+
+    elif intent == "get_subject_by_time":
+        weekday_entity = entities.get("weekday:weekday", [{}])[0].get("value")
+        time_entity = entities.get("time:time", [{}])[0].get("value")
+
+        if weekday_entity and time_entity:
+        # 한글 요일 → JSON 키로 변환
+            day_map = {
+                "월요일": "Mon", "화요일": "Tue", "수요일": "Wed",
+                "목요일": "Thu", "금요일": "Fri"
+            }
+
+            match = re.search(r'\d+', time_entity)
+            time_num = match.group() if match else None
+
+            weekday_eng = day_map.get(weekday_entity)
+
+            if weekday_eng and time_num and f"{time_num}c" in time_table[weekday_eng]:
+                subject = time_table[weekday_eng][f"{time_num}c"]
+                answer = f"{weekday_entity} {time_num}교시는 {subject}야!"
+            else:
+                answer = f"{weekday_entity} {time_entity}는 수업이 없는 것 같아!"
+        else:
+            answer = "요일이나 교시 정보를 잘 못 들었어!"
 
     else:
         answer = "음... 질문을 잘 이해하지 못했어"
