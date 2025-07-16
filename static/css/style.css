@@ -44,3 +44,17 @@ h1 {
   margin-bottom: 20px;
   transition: all 0.3s ease;
 }
+
+.fixed-box {
+  width: 100%;
+  min-height: 80px;
+  border: 1px solid #464646;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  background-color: #464646;
+  font-size: 1.2rem;
+  white-space: pre-wrap; /* 줄바꿈 유지 */
+  overflow-wrap: break-word; /* 긴 문장 줄바꿈 */
+  box-sizing: border-box;
+}
