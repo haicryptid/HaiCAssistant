@@ -3,28 +3,34 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>3학년 10반 AI 비서</title>
+  <title>Hi Teen</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Orbit&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <div class="wrapper">
-    <h1>🎙️ 3학년 10반 AI 비서</h1>
+    <h1>🎙️ 3학년 10반 AI 비서 Hi Teen</h1>
 
-    <div id="question" class="fixed-box">여기에 질문이 표시됩니다</div>
-    <div id="answer" class="fixed-box">여기에 답변이 표시됩니다</div>
+    <div id="mic-container">
+      <button id="mic-button">
+        <img id="mic-img" src="{{ url_for('static', filename='assets/offMic.png') }}" alt="Mic" width="120">
+      </button>
+    </div>
 
-    <button id="mic-button">
-      <img id="mic-img" src="{{ url_for('static', filename='assets/offMic.png') }}" alt="Mic" width="120">
-    </button>
+    <div class="bubble-container">
 
-    <!--이거 추가함-->
-    <input type="text" id="text-input" placeholder="질문을 입력하세요" />
-    <button id="text-submit">입력</button>
+      <div id="answer" class="bubble ai">🤖 여기에 답변이 표시됩니다</div>
+      <div id="question" class="bubble user">🧐 여기에 질문이 표시됩니다</div>
+    </div>
+
+
+    <div class="input-container">
+      <input type="text" id="text-input" placeholder="질문을 입력하세요" />
+      <button id="text-submit">입력</button>
+    </div>
 
   </div>
-
   <script src="{{ url_for('static', filename='js/testScript.js') }}"></script>
 </body>
 

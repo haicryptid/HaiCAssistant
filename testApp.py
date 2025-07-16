@@ -121,13 +121,15 @@ def ask():
     intent = wit_data.get("intents", [{}])[0].get("name", "")
     entities = wit_data.get("entities", {})
 
-    
-    print("🎯 인식된 intent:", intent, flush=True)
-    print("📦 인식된 entities:", json.dumps(entities, ensure_ascii=False), flush=True)
-
-
     if intent == "get_teacher_name":
         answer = "우리 반 담임 선생님은 장세민 선생님이야!"
+
+    elif intent == "describe_teacher":
+        answer = "세민쌤? 우리 천상천하유아독존 장세민쌤 말하는 거지?ㅎㅎ " \
+        "항상 학생들을 위해 힘쓰시고, 열정이 폭발적이신 최고의 선생님이셔! " \
+        "우리 모두 존경하지 않을 수 없다고! "\
+        "세민쌤 덕분에 학교 생활이 더 즐거워지는 느낌이랄까? "\
+        "특히 16번 이하은 학생이 세민쌤을 그렇게나 좋아한다고 하더라고!"
 
     elif intent == "get_student_name":
         number_entity = entities.get("student_number:student_number", [{}])[0].get("value")
@@ -180,7 +182,7 @@ def ask():
         if date:
             answer = get_lunch_info(date, meal_type)
         else:
-            answer = "오늘 / 내일, 중식 / 석식 중 언제 급식을 알고 싶은지 말해줘!"
+            answer = "오늘/내일, 중식/석식 중 언제 급식을 알고 싶은지 말해줘!"
 
     else:
         answer = "음... 질문을 잘 이해하지 못했어"
